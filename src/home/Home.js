@@ -28,6 +28,7 @@ import Stroe from '../Stroe'
 import Chat from '../Chat'
 import Recoder from '../Recoder'
 
+import MyLive from '../MyLive'
 
 
 export default class Home extends Component {
@@ -139,7 +140,14 @@ export default class Home extends Component {
         });
 
     }
+    _onLive(that){
+        var navigator = that.props.navigator;
+        navigator.push({
+            title: 'Live33',
+            component: MyLive,
+        });
 
+    }
 
     render() {
         return (
@@ -179,7 +187,9 @@ export default class Home extends Component {
                 <TouchableOpacity onPress={()=>this._onRecoder(this)}>
                     <Text>打开录音</Text>
                 </TouchableOpacity>
-
+                <TouchableOpacity onPress={()=>this._onLive(this)}>
+                    <Text>打开直播</Text>
+                </TouchableOpacity>
                 <Text>------------------------------------</Text>
 
                 <ListView

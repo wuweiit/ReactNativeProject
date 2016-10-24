@@ -20,7 +20,7 @@ import  org.lovebing.reactnative.baidumap.BaiduMapPackage;
 import com.rnfs.RNFSPackage;
 
 import com.vunun.recorder.AudioRecorderManagerPackage;
-
+import com.vunun.live.*;
 public class MainApplication extends Application implements ReactApplication {
 
   private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
@@ -37,7 +37,8 @@ public class MainApplication extends Application implements ReactApplication {
             new AudioRecorderManagerPackage(),
               new VectorIconsPackage(), new ReactVideoPackage(),
              new ImagePickerPackage(),new RNFSPackage(),
-              new BaiduMapPackage(getApplicationContext())
+              new BaiduMapPackage(getApplicationContext()),
+              new RNLivePackage()
       );
     }
   };

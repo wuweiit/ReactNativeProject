@@ -144,6 +144,7 @@ dependencies {
     compile project(':react-native-vunun-recorder')
     compile project(':react-native-image-picker')
     compile project(':react-native-baidu-map')
+    compile project(':react-native-vunun-live')
 
 }
 
