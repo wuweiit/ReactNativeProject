@@ -64,6 +64,7 @@ export default class Map extends Component {
         return (
             <View style={{backgroundColor:'#ffffff'}}>
                 <Header title="获取地理位置"
+                        enableBackBtn={true}
                         backgroundColor="#3CA352"
                         onPressBack={()=>{
                             this.props.navigator.pop();
