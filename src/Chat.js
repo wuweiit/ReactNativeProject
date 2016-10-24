@@ -27,10 +27,12 @@ export default class Chat extends Component {
             isSelected: true,
             totalPrice: 0,
             data: [
-                {title: "你好，你是谁。。。", count: 1, price: 0}
-                , {title: "你好，再见!", count: 1, price: 188.02}
-                , {title: "也许是南瓜。。。", count: 0, price: 188.02}
-                , {title: "也许是南瓜。。dsasaaaaaaaaaaaaaaamlmmkmklfmdsamfmga;sadf;ms;afdsafmdsa;kfmskdafm;。", count: 0, price: 188.02}
+                {title: "你好，你是谁。。。",icon:"../img/product1.png",isMe:false,time:new Date() }
+                , {title: "你好，再见!",icon:"../img/product1.png",isMe:false,time:new Date()    }
+                , {title: "也许是南瓜。。。",icon:"../img/product1.png",isMe:false,time:new Date() }
+                , {title: "也许是南瓜。。dsasaaaaaaaaaaaaaaamlmmkmklfmdsamfmga;sadf;ms;afdsafmdsa;kfmskdafm;。"
+                    ,icon:"../img/product1.png",isMe:true,time:new Date()
+                }
             ],
             messageContent:"",
         }
@@ -43,12 +45,40 @@ export default class Chat extends Component {
 
     _onSendMessage(that){
         if(that.state.messageContent != ""){
-            that.state.data.push({title: this.state.messageContent});
+            that.state.data.push({title: this.state.messageContent,isMe:true});
             that.state.messageContent = "";
             that._textInput.clear();
             that.setState(this.state);
         }
     }
+
+    _renderRowItem(rowData, sectionID, rowID) {
+        if(rowData.isMe){// 自己发的消息
+            return (
+                <View style={styles.product_item}>
+                    <View style={styles.messageWrapper}>
+                        <Text style={styles.messageText}>{rowData.title}</Text>
+                    </View>
+                    <Image source={require('../img/product1.png')}
+                           style={{width:40,height:40,borderRadius:20, }}
+                    ></Image>
+                </View>
+            )
+        }else{
+            return (
+                <View style={styles.product_item}>
+                    <Image source={require('../img/favicon.png')}
+                           style={{width:40,height:40,borderRadius:20, }}
+                    ></Image>
+                    <View style={styles.messageWrapper}>
+                        <Text style={styles.messageText}>{rowData.title}</Text>
+                    </View>
+                </View>
+            )
+        }
+    }
+
+
 
 
     render() {
@@ -64,19 +94,10 @@ export default class Chat extends Component {
                 <ListView style={{marginBottom:70}}
                         ref={(component) => {this._listView = component;}}
                       dataSource={this.ds.cloneWithRows(this.state.data)}
-                      renderRow={(rowData, sectionID, rowID) =>
-                          <View style={styles.product_item}>
-                              <Image source={require('../img/product1.png')}
-                                     style={{width:40,height:40,borderRadius:20, }}
-                              ></Image>
-                              <View style={styles.messageWrapper}>
-                                  <Text style={styles.messageText}>{rowData.title}</Text>
-                              </View>
-                          </View>
-                      }
-                          onEndReached={()=>{
-                              this._listView.scrollTo({x:0,y:this._listView._sentEndForContentLength,animated:true});
-                          }}
+                      renderRow={this._renderRowItem}
+                      onEndReached={()=>{
+                          this._listView.scrollTo({x:0,y:this._listView._sentEndForContentLength,animated:true});
+                      }}
                 />
                 <View style={styles.messageBox}>
                     <TextInput style={styles.input}
